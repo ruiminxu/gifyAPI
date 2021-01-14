@@ -22,7 +22,8 @@ export default class App extends Component{
 
         this.setState({isLoading: true})
 
-        try {
+        try 
+        {
           let gif = await axios.get(url);
           this.setState({ gif: gif.data.data, isLoading: false});
         } catch (error) {
@@ -30,39 +31,29 @@ export default class App extends Component{
         }
     }
 
-    handleTrendingGif = async (searchTermFromChild) => 
+    handleTrendingGif = async () => 
     {
-      let url = '';
-      if(searchTermFromChild === null)
-      {
-        url = `https://api.giphy.com/v1/gifs/trending?q=&rating=g&api_key=VPO2hf8Msh28T0DeFVHly9hhQh207tC2`;
-      }else{
-        url = `https://api.giphy.com/v1/gifs/trending?q=${searchTermFromChild}&rating=g&api_key=VPO2hf8Msh28T0DeFVHly9hhQh207tC2`;
-      }
+        const url = `https://api.giphy.com/v1/gifs/trending?q=&rating=g&api_key=VPO2hf8Msh28T0DeFVHly9hhQh207tC2`;
+        
+        this.setState({isLoading: true})
 
-      this.setState({isLoading: true})
-
-      try {
-        let gif = await axios.get(url);
-        this.setState({ trendingGif: gif.data.data, isLoading: false});
-      } catch (error) {
-        console.error(error);
-      }
+        try 
+        {
+          let gif = await axios.get(url);
+          this.setState({ trendingGif: gif.data.data, isLoading: false});
+        } catch (error) {
+          console.error(error);
+        } 
     }
 
-    handleRandomGif = async (searchTermFromChild) => 
+    handleRandomGif = async () => 
     {
-      let url = '';
-      if(searchTermFromChild === null)
+      let url = `https://api.giphy.com/v1/gifs/random?q=&rating=g&api_key=VPO2hf8Msh28T0DeFVHly9hhQh207tC2`;
+       
+      this.setState({isLoading: true})
+
+      try 
       {
-        url = `https://api.giphy.com/v1/gifs/random?q=&rating=g&api_key=VPO2hf8Msh28T0DeFVHly9hhQh207tC2`;
-      }else{
-        url = `https://api.giphy.com/v1/gifs/random?q=${searchTermFromChild}&rating=g&api_key=VPO2hf8Msh28T0DeFVHly9hhQh207tC2`;
-      }
-
-       this.setState({isLoading: true})
-
-      try {
         let gif = await axios.get(url);
         this.setState({ randomGif: [gif['data']['data']], isLoading: false});
       } catch (error) {
@@ -73,7 +64,7 @@ export default class App extends Component{
     render()
     {
         return( 
-            <div>
+            <>
                 <SearchField 
                 searchGif = {this.state.gif} 
                 searchInput = {this.handleSearchByInput} 
@@ -83,7 +74,7 @@ export default class App extends Component{
                 randomGif = {this.state.randomGif}
                 loading = {this.state.isLoading}
                 />
-            </div>
+            </>
         );
     }
 }

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import GifCard from "./GifCard";
+// import './App.css';
 
 export default class SearchField extends Component{
     
@@ -16,6 +17,9 @@ export default class SearchField extends Component{
 
     handleSubmit = (event) =>{
         event.preventdefault()
+        this.setState({
+            searchTerm: ''
+        })
     }
     
     handleSearch = (event) =>{
@@ -28,8 +32,10 @@ export default class SearchField extends Component{
         this.setState({
             isSearchClicked: true,
             isTrendClicked: false,
-            isRandomClicked: false
+            isRandomClicked: false,
+            searchTerm: ''
         }
+       
     )
         this.props.searchInput(this.state.searchTerm, this.state.isSearchClicked);
     }
@@ -38,18 +44,20 @@ export default class SearchField extends Component{
         this.setState({
             isSearchClicked: false,
             isTrendClicked: true,
-            isRandomClicked: false
+            isRandomClicked: false,
+            searchTerm: ''
         })
-        this.props.trendInput(this.state.searchTerm, this.state.isTrendClicked);
+        this.props.trendInput(this.state.isTrendClicked);
     }
 
     handleRandomInput = () => {
         this.setState({
             isSearchClicked: false,
             isTrendClicked: false,
-            isRandomClicked: true
+            isRandomClicked: true,
+            searchTerm: ''
         })
-        this.props.randomInput(this.state.searchTerm, this.state.isRandomClicked);
+        this.props.randomInput(this.state.isRandomClicked);
     }
     
     render()
@@ -57,11 +65,12 @@ export default class SearchField extends Component{
         return(
             <div className = "searchBoxContainer">
             
-                <input placeholder = "look up a gif" name = "searchTerm" onChange={this.handleSearch}></input>
-                <button onClick = {this.handleSearchInput}>Search</button>
-                <button onClick = {this.handleTrendInput}>Trending</button>
-                <button onClick = {this.handleRandomInput}>Random</button>
-
+                <input value = {this.state.searchTerm} placeholder = "look up a gif..." name = "searchTerm" onChange={this.handleSearch}></input>
+                <button className = "btn " name = "search" onClick = {this.handleSearchInput}>Search</button>
+                <button className = "btn" name = "trending" onClick = {this.handleTrendInput}>Trending</button>
+                <button className = "btn" name = "random" onClick = {this.handleRandomInput}>Random</button>
+                    
+                <div>
                 {
                    this.props.loading === true?
                   
@@ -73,38 +82,29 @@ export default class SearchField extends Component{
                    <div> Default </div>
                    :
                    this.state.isSearchClicked? 
-                   this.props.searchGif.map((gif) =>{
-                       console.log(gif)
+                   this.props.searchGif.map((gif, index) =>{
+                       
                        return(
-                           <GifCard name = {gif.id} source = {gif.images.original.url}/>
+                           <GifCard name = {gif.id} key = {index + 1} source = {gif.images.original.url}/>
                             );
                    }) 
                    : this.state.isTrendClicked? 
-                   this.props.trendingGif.map((gif) =>{
-                       console.log(gif)
+                   this.props.trendingGif.map((gif, index) =>{
+                    console.log(gif)
                        return(
-                           <GifCard name = {gif.id} source = {gif.images.original.url}/>
+                           <GifCard name = {gif.id} key = {index + 1} source = {gif.images.original.url}/>
                             );
                    })
                    : 
-                   this.props.randomGif.map((gif) =>{
+                   this.props.randomGif.map((gif, index) =>{
                        return(
-                           <GifCard name = {gif.id} source = {gif.images.original.url}/>
+                           <GifCard name = {gif.id} key = {index + 1} source = {gif.images.original.url}/>
                             );
                    })
                 }
+                </div>
+               
             </div>
         );
     }
 }
-
-
-
-
-// {
-//     this.props.randomGifS.map((gif) =>{
-//         return(
-//             <GifCard name = {gif.id} source = {gif.images.original.url}/>
-//         );
-//     })
-// }
