@@ -18,13 +18,6 @@ export default class SearchField extends Component{
         })
     }
 
-    // handleClick = () =>{
-    //     this.setState({
-    //         isClicked: true
-    //     })
-    //     this.handleSearchInput();
-    // }
-
     handleSubmit = (event) =>{
         event.preventdefault()
     }
@@ -47,7 +40,6 @@ export default class SearchField extends Component{
                         return(
                         <GifCard name = {gif.id} source = {gif.images.original.url}/>
                         );
-                       
                     })
                 }
             </div>
