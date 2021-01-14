@@ -12,69 +12,69 @@ export default class App extends Component{
             searchTerm: '',
             trendingGif: [],
             randomGif: [],
-            isLoading: true,
+            isLoading: null,
         }
     }
 
-    handleSearchByInput =  async (searchTermFromChild) =>{
-       
-        const urlPart1 = "https://api.giphy.com/v1/gifs/search?q=";
-        const urlPart2 = searchTermFromChild;
-        const urlPart3 = "&rating=g&";
-        const key = "api_key=VPO2hf8Msh28T0DeFVHly9hhQh207tC2";
-        const completeUrl = urlPart1 + urlPart2 + urlPart3 + key;
-        
-        try {
-          let gif = await axios.get(completeUrl);
-          this.setState({ gif: gif.data.data});
+    handleSearchByInput =  async (searchTermFromChild) =>
+    {
+        const url = `https://api.giphy.com/v1/gifs/search?q=${searchTermFromChild}&rating=g&api_key=VPO2hf8Msh28T0DeFVHly9hhQh207tC2`;
+
+        this.setState({isLoading: true})
+
+        try 
+        {
+          let gif = await axios.get(url);
+          this.setState({ gif: gif.data.data, isLoading: false});
         } catch (error) {
           console.error(error);
         }
     }
 
-    handleTrendingGif = async () => {
-      const urlPart1 = "https://api.giphy.com/v1/gifs/trending?q=";
-      // const urlPart2 = searchTermFromChild;
-      const urlPart3 = "&rating=g&";
-      const key = "api_key=VPO2hf8Msh28T0DeFVHly9hhQh207tC2";
-      const completeUrl = urlPart1 + urlPart3 + key;
-      try {
-        let gif = await axios.get(completeUrl);
-        this.setState({ trendingGif: gif.data.data});
-      } catch (error) {
-        console.error(error);
-      }
+    handleTrendingGif = async () => 
+    {
+        const url = `https://api.giphy.com/v1/gifs/trending?q=&rating=g&api_key=VPO2hf8Msh28T0DeFVHly9hhQh207tC2`;
+        
+        this.setState({isLoading: true})
+
+        try 
+        {
+          let gif = await axios.get(url);
+          this.setState({ trendingGif: gif.data.data, isLoading: false});
+        } catch (error) {
+          console.error(error);
+        } 
     }
 
-    handleRandomGif = async () => {
-      const urlPart1 = "https://api.giphy.com/v1/gifs/random?q=";
-      // const urlPart2 = searchTermFromChild;
-      const urlPart3 = "&rating=g&";
-      const key = "api_key=VPO2hf8Msh28T0DeFVHly9hhQh207tC2";
-      const completeUrl = urlPart1 + urlPart3 + key;
-      try {
-        let gif = await axios.get(completeUrl);
+    handleRandomGif = async () => 
+    {
+      let url = `https://api.giphy.com/v1/gifs/random?q=&rating=g&api_key=VPO2hf8Msh28T0DeFVHly9hhQh207tC2`;
+       
+      this.setState({isLoading: true})
+
+      try 
+      {
+        let gif = await axios.get(url);
         this.setState({ randomGif: [gif['data']['data']], isLoading: false});
       } catch (error) {
         console.error(error);
       } 
     }
     
-  
     render()
     {
         return( 
-            <div>
+            <>
                 <SearchField 
-                gif = {this.state.gif} 
+                searchGif = {this.state.gif} 
                 searchInput = {this.handleSearchByInput} 
                 trendInput = {this.handleTrendingGif} 
                 randomInput = {this.handleRandomGif} 
                 trendingGif = {this.state.trendingGif} 
-                randomGifS = {this.state.randomGif}
+                randomGif = {this.state.randomGif}
                 loading = {this.state.isLoading}
                 />
-            </div>
+            </>
         );
     }
 }
