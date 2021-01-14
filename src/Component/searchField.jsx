@@ -36,11 +36,10 @@ export default class SearchField extends Component{
         this.setState({
             isClicked: true
         })
-        
-        
     }
     
-    render(){
+    render()
+    {
         return(
             <div className = "searchBoxContainer">
                
@@ -51,23 +50,13 @@ export default class SearchField extends Component{
                 <button onClick = {this.handleRandomInput}>Random</button>
                
                 {
-                    this.state.isClicked && !this.props.loading? 
-                    <div> 
-
-                    {           
-                        // Object.keys(this.props.randomGifS.images.original).map((key) =>{
-                        //     console.log(key)
-                        // })
-                        console.log(this.props.randomGifS)
-                    }
-
-                    </div> :
-                    <div> 
-
-                            no
-
-                    </div>
+                    this.props.randomGifS.map((gif) =>{
+                        return(
+                            <GifCard name = {gif.id} source = {gif.images.original.url}/>
+                        );
+                    })
                 }
+            
             </div>
         );
     }

@@ -54,17 +54,13 @@ export default class App extends Component{
       const completeUrl = urlPart1 + urlPart3 + key;
       try {
         let gif = await axios.get(completeUrl);
-        this.setState({ randomGif: gif['data']['data'], isLoading: false});
+        this.setState({ randomGif: [gif['data']['data']], isLoading: false});
       } catch (error) {
         console.error(error);
-      }
+      } 
     }
     
-    async componentDidMount() {
-      
-    
-    }
-
+  
     render()
     {
         return( 
