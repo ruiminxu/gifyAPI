@@ -26,22 +26,37 @@ export default class SearchField extends Component{
         // console.log(this.state.searchTerm)
         this.props.searchInput(this.state.searchTerm);
     }
+
+    handleTrendInput = () =>{
+        this.props.trendInput();
+    }
+
+    handleRandomInput = () => {
+        this.props.randomInput();
+        this.setState({
+            isClicked: true
+        })
+    }
     
-    render(){
+    render()
+    {
         return(
             <div className = "searchBoxContainer">
-                <form onSubmit = {this.handleSubmit}>
-                    <input placeholder = "look up a gif" name = "searchTerm" onChange={this.handleSearch}></input>
-                </form>
+               
+                <input placeholder = "look up a gif" name = "searchTerm" onChange={this.handleSearch}></input>
+                   
                 <button onClick = {this.handleSearchInput}>Search</button>
+                <button onClick = {this.handleTrendInput}>Trending</button>
+                <button onClick = {this.handleRandomInput}>Random</button>
+               
                 {
-                    this.props.gif.map((gif) =>{
-                        
+                    this.props.randomGifS.map((gif) =>{
                         return(
-                        <GifCard name = {gif.id} source = {gif.images.original.url}/>
+                            <GifCard name = {gif.id} source = {gif.images.original.url}/>
                         );
                     })
                 }
+            
             </div>
         );
     }
