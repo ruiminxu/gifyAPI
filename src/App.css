@@ -37,3 +37,46 @@
   }
 }
 
+.title{
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600 !important;
+  color:#A9A9A9		 !important;
+  padding: 1.5rem;
+}
+
+.searchBox{
+  margin: 0, auto;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 20px;
+  border: 1px solid #F5FFFA	;
+}
+
+.searchBox:focus{
+  outline: none;
+}
+
+.btn:focus,.btn:active {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.btn{
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600 !important;
+  color:#A9A9A9		 !important;
+}
+
+#root{
+  height: 100vh;
+  background-color: #F0FFF0;
+}
+
+.gifContainer{
+  border: 2px solid red;
+}
+
+.gifBox{
+  padding: 1rem;
+}
+
