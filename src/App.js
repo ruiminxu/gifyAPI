@@ -2,6 +2,7 @@ import './App.css';
 import SearchField from './Component/searchField';
 import React, {Component} from 'react';
 import axios from 'axios';
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 export default class App extends Component{
   constructor()
