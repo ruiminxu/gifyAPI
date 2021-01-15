@@ -3,6 +3,7 @@ import SearchField from './Component/searchField';
 import React, {Component} from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css'
+import {Container, Row, Col} from 'react-bootstrap'
 
 export default class App extends Component{
   constructor()
@@ -34,7 +35,7 @@ export default class App extends Component{
 
     handleTrendingGif = async () => 
     {
-        const url = `https://api.giphy.com/v1/gifs/trending?q=&rating=g&api_key=VPO2hf8Msh28T0DeFVHly9hhQh207tC2`;
+        const url = `https://api.giphy.com/v1/gifs/trending?q=&rating=g&limit=100&api_key=VPO2hf8Msh28T0DeFVHly9hhQh207tC2`;
         
         this.setState({isLoading: true})
 
@@ -65,7 +66,7 @@ export default class App extends Component{
     render()
     {
         return( 
-            <>
+            <Container fluid style = {{backgroundColor: '#F0FFF0'} }>
                 <SearchField 
                 searchGif = {this.state.gif} 
                 searchInput = {this.handleSearchByInput} 
@@ -75,7 +76,7 @@ export default class App extends Component{
                 randomGif = {this.state.randomGif}
                 loading = {this.state.isLoading}
                 />
-            </>
+            </Container>
         );
     }
 }
